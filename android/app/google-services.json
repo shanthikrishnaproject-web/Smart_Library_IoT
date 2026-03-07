@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "426570633533",
+    "firebase_url": "https://library-automation-syste-2844f-default-rtdb.firebaseio.com",
+    "project_id": "library-automation-syste-2844f",
+    "storage_bucket": "library-automation-syste-2844f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426570633533:android:cd92a42e0842408603b554",
+        "android_client_info": {
+          "package_name": "com.example.findmybook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiRMLMECyuFtXPtY_4woi5vFxFZu6Eask"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
