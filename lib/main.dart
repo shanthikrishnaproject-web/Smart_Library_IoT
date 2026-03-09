@@ -367,6 +367,49 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 ),
               ],
             ),
+            if (book.child("isAvailable").value == true)
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      final bookId = book.key;
+                      if (bookId != null) {
+                        FirebaseDatabase.instance
+                            .ref()
+                            .child("books")
+                            .child(bookId)
+                            .update({"ledStatus": true});
+
+                        // Turn off LED after 30 seconds
+                        Future.delayed(const Duration(seconds: 30), () {
+                          FirebaseDatabase.instance
+                              .ref()
+                              .child("books")
+                              .child(bookId)
+                              .update({"ledStatus": false});
+                        });
+
+                        Navigator.pop(context); // Close the bottom sheet
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Finding Book... Check the Shelf for Light!",
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.location_on),
+                    label: const Text("FIND MY BOOK"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
