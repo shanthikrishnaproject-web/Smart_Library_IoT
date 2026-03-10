@@ -200,17 +200,25 @@ class _BookRegistrationFormState extends State<BookRegistrationForm> {
   void _saveBook() {
     if (_bId.text.isEmpty || _bTitle.text.isEmpty) return;
 
-    FirebaseDatabase.instance
-        .ref()
-        .child("books")
-        .child(_bId.text.toUpperCase())
-        .set({
-          "title": _bTitle.text,
-          "author": _bAuthor.text,
-          "shelf": _bShelf.text,
-          "ledStatus": _ledStatus,
-          "isAvailable": true,
+    final String bookId = _bId.text.toUpperCase();
+    final bool enableLed = _ledStatus;
+
+    FirebaseDatabase.instance.ref().child("books").child(bookId).set({
+      "title": _bTitle.text,
+      "author": _bAuthor.text,
+      "shelf": _bShelf.text,
+      "ledStatus": enableLed,
+      "isAvailable": true,
+    });
+
+    // Automatically turn off LED after 30 seconds
+    if (enableLed) {
+      Future.delayed(const Duration(seconds: 30), () {
+        FirebaseDatabase.instance.ref().child("books").child(bookId).update({
+          "ledStatus": false,
         });
+      });
+    }
 
     _bId.clear();
     _bTitle.clear();
